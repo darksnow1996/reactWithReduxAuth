@@ -16,6 +16,12 @@ const authReducer = (state={
     else if(action.type ===  actions.USER_LOG_IN_REJECTED){
         return merge(state, {loginErr: action.payload})
     }
+    else if(action.type === actions.USER_LOGGED_OUT){
+        return merge(state, {isAuthenticated:false})
+    }
+    else if(action.type === actions.USER_SESSION_EXPIRED){
+        return merge(state, {isAuthenticated:false})
+    }
 
     return state;
 }

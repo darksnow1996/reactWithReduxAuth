@@ -1,12 +1,14 @@
-import {register,login} from "../data/auth"
+import {register,login, logout} from "../data/auth"
 
 // action types
 export const REGISTERED_USER = "REGISTERED_USER"
 export const UPDATED_USER = "UPDATED_USER"
 export const USER_LOGGED_IN = "USER_LOGGED_IN"
+export const USER_LOGGED_OUT = "USER_LOGGED_OUT"
 export const USER_LOG_IN_REJECTED = "USER_LOG_IN_REJECTED"
 export const USER_REGISTERED ="USER_REGISTERED"
 export const USER_REGISTRATION_REJECTED = "USER_REGISTRATION_REJECTED"
+export const USER_SESSION_EXPIRED = "USER_SESSION_EXPIRED"
 
 
 export const loginUser = (payload) => async(dispatch) => {
@@ -27,6 +29,29 @@ export const loginUser = (payload) => async(dispatch) => {
         })
     }
     
+}
+
+export const logoutUser = ()=> {
+    try{
+        logout()
+        return {
+            type:USER_LOGGED_OUT,
+            
+        }
+
+    }
+    catch(error){
+
+
+    }
+    
+    
+}
+
+export const userSessionExpired = ()=>{
+    return {
+        type: USER_SESSION_EXPIRED
+    }
 }
 
 // export const registerUser = (payload) => async(dispatch)=>{

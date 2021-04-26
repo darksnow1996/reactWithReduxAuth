@@ -1,4 +1,5 @@
 import api from "../api"
+import store from "../redux/store"
 
 async function register(data){
     try{
@@ -31,15 +32,41 @@ async function login(data){
 
 async function logout(){
     try{
-        let response = await api.post('logout')
+        let response = await api.post('logout',null, setTokenConfig())
     }
     catch(error){
         throw new Error(error)
     }
 }
 
+async function checkStatus(){
+    try{
+       
+        let response = await api.get('auth/status',setTokenConfig())
+        return response.data
+    }
+    catch(error){
+        //console.log(store.getState().auth.token)
+        throw new Error(error.response.data.message)    
+    }
+}
+
+function setTokenConfig(){
+    const {token} = store.getState().auth
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+        return config
+    }
+
+
+
 export {
     register,
     login,
-    logout
+    logout,
+    checkStatus, 
 }
